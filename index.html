@@ -42,6 +42,7 @@
         .status {
             color: #666;
             font-size: 0.9em;
+            margin-left: 20px;
         }
 
         .completed {
@@ -52,6 +53,12 @@
         .loading {
             text-align: center;
             color: #666;
+        }
+
+        .completed-info {
+            color: #999;
+            font-size: 0.85em;
+            margin-left: 20px;
         }
     </style>
 </head>
@@ -83,7 +90,9 @@
                             const parts = line.split('|');
                             return {
                                 text: parts[0],
-                                completed: parts[1] === 'true'
+                                completed: parts[1] === 'true',
+                                completedDate: parts[2] || '',
+                                completer: parts[3] || ''
                             };
                         });
 
@@ -105,6 +114,12 @@
                     <input type="checkbox" ${todo.completed ? 'checked' : ''} disabled>
                     <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
                     <span class="status">${todo.completed ? '已完成' : '未完成'}</span>
+                    ${todo.completed ? 
+                        `<span class="completed-info">
+                            日期：${todo.completedDate}<br>
+                            完成者：${todo.completer}
+                        </span>` : 
+                        ''}
                 `;
                 todoList.appendChild(li);
             });
