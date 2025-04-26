@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办事项</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-input {
+            margin-bottom: 20px;
+        }
+
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .todo-text {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .status {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>待办事项</h1>
+        <input type="file" class="file-input" id="fileInput" accept=".txt">
+        <ul id="todoList" class="todo-list"></ul>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const todoList = document.getElementById('todoList');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    const todos = content.split('\n')
+                        .map(line => line.trim())
+                        .filter(line => line !== '')
+                        .map(line => {
+                            const parts = line.split('|');
+                            return {
+                                text: parts[0],
+                                completed: parts[1] === 'true'
+                            };
+                        });
+
+                    renderTodos(todos);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function renderTodos(todos) {
+            todoList.innerHTML = '';
+            todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.className = 'todo-item';
+                li.innerHTML = `
+                    <input type="checkbox" ${todo.completed ? 'checked' : ''} disabled>
+                    <span class="todo-text ${todo.completed ? 'completed' : ''}">${todo.text}</span>
+                    <span class="status">${todo.completed ? '已完成' : '未完成'}</span>
+                `;
+                todoList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
