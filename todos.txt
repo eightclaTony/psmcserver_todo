@@ -1,5 +1,8 @@
-买奶油|true|2023-07-20|Alice
-整理文件|true|2023-07-19|Bob
-学习JavaScript|false|| 
-打电话给John|false|| 
-提交项目报告|true|2023-07-18|Charlie
+牛蛙boss血条设置|true|2025-04-24|haker
+优化主城保护|true|2025-04-24|haker
+确保所有维度中雪球都可以正常传送|true|haker| 
+商品兑换：腐肉、蜘蛛眼、骨头等|false|| 
+pve选关大厅|false|| 
+牛蛙进场动画|true|2025-04-25|haker
+op小蛋糕、op镐子等特殊物品|true|2025-04-25|42434445
+牛蛙死亡后战利品及特效|true|2025-04-25|yuebi
